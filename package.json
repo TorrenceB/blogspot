@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "autoprefixer": "^9.8.8",
+    "aws-amplify": "^4.3.37",
     "core-js": "^3.6.5",
     "flowbite": "^1.5.3",
     "pinia": "^2.0.22",

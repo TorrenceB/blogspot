@@ -10,6 +10,11 @@
       "StackName": "amplify-blogspot-staging-235422",
       "StackId": "arn:aws:cloudformation:us-west-2:472281986439:stack/amplify-blogspot-staging-235422/b485c160-4376-11ed-8fd6-060e160a3a8f",
       "AmplifyAppId": "d1rc0vdc83s34v"
+    },
+    "categories": {
+      "auth": {
+        "blogspotf88d3dfa": {}
+      }
     }
   }
 }

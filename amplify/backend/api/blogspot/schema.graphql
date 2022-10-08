@@ -12,12 +12,7 @@ type Blog @model {
 type Post @model {
   id: ID!
   title: String!
+  image: String
+  body: String
   blog: Blog @belongsTo
-  comments: [Comment] @hasMany
-}
-
-type Comment @model {
-  id: ID!
-  post: Post @belongsTo
-  content: String!
 }

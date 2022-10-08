@@ -7,17 +7,18 @@
     >
       Add Post
     </button>
-    <Posts />
+    <button
+      @click="$router.push({ name: 'Posts' })"
+      type="button"
+      class="add-post__button"
+    >
+      View Posts
+    </button>
   </div>
 </template>
 <script>
-import Posts from "@/components/posts";
-
 export default {
   name: "Home",
-  components: {
-    Posts,
-  },
 };
 </script>
 <style scoped>
