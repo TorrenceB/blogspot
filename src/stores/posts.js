@@ -10,6 +10,19 @@ export const usePostStore = defineStore("posts", {
   getters: {
     getPost: (state) => (id) => state.posts.find((post) => post.id === id),
     getPosts: (state) => state.posts,
+    getMostRecentPostByDate: (state) => {
+      const mostRecent = new Date(
+        Math.max(...state.posts.map((post) => new Date(post.createdAt)))
+      );
+      const options = {
+        weekday: "short",
+        month: "short",
+        day: "2-digit",
+      };
+      const formated = mostRecent.toLocaleDateString("en-US", options);
+
+      return formated;
+    },
   },
   actions: {
     async fetch() {
@@ -39,11 +52,9 @@ export const usePostStore = defineStore("posts", {
         );
 
         this.posts = this.posts.map((post) => {
-          if (post.id === input.id) {
-            return Object.assign(post, data.updatePost, {});
-          } else {
-            return post;
-          }
+          const updated = Object.assign(post, data.updatePost, {});
+
+          return post.id === input.id ? updated : post;
         });
       } catch (err) {
         console.error("!", "@usePostStore:posts::update", err);

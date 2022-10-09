@@ -1,5 +1,4 @@
 <template>
-  <h1 class="text-4xl">Add Post</h1>
   <div>
     <!-- Title -->
     <label

@@ -1,8 +1,6 @@
 <template>
   <div class="flex flex-col">
-    <div class="flex">
-      <Post v-for="post in store.getPosts" :key="post.id" :post="post" />
-    </div>
+    <Post v-for="post in store.getPosts" :key="post.id" :post="post" />
   </div>
 </template>
 <script>
