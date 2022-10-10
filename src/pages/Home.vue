@@ -36,7 +36,7 @@
         >Add Post</AppButton
       >
       <AppButton @click="$router.push({ name: 'Posts' })" isSecondary
-        >View Posts</AppButton
+        >Manage Posts</AppButton
       >
     </div>
   </div>
