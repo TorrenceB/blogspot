@@ -1,5 +1,5 @@
 <template>
-  <div>{{ $route.params.id }}</div>
+  <div class="dark:text-white">{{ $route.params.id }}</div>
 </template>
 <script>
 import { usePostStore } from "@/stores/posts";

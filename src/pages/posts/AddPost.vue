@@ -1,55 +1,67 @@
 <template>
-  <div>
+  <div class="space-y-6">
     <!-- Title -->
-    <label
-      for="title"
-      class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-      >Post Title</label
-    >
-    <input
-      v-model="state.title"
-      type="text"
-      id="title"
-      class="title__input"
-      placeholder="Example: Recipe Ideas"
-      required
-    />
+    <div>
+      <label
+        for="title"
+        class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+        >Post Title</label
+      >
+      <input
+        v-model="state.title"
+        type="text"
+        id="title"
+        class="title__input"
+        placeholder="Example: Recipe Ideas"
+        required
+      />
+    </div>
 
     <!-- Upload Image -->
 
-    <label
-      class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-      for="post-image"
-      >Upload image</label
-    >
-    <input
-      class="image__input"
-      aria-describedby="image_help"
-      id="post-image"
-      type="file"
-    />
+    <div>
+      <label
+        class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+        for="post-image"
+        >Upload image</label
+      >
+      <input
+        class="image__input"
+        aria-describedby="image_help"
+        id="post-image"
+        type="file"
+      />
+    </div>
 
     <!-- Body -->
-    <div class="mb-6">
+    <div>
       <label
         for="body"
         class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-        >Your Post</label
+        >Post Body</label
       >
-      <input v-model="state.body" type="text" id="body" class="body__input" />
+      <textarea
+        v-model="state.body"
+        type="text"
+        id="body"
+        class="body__input"
+        rows="8"
+      />
     </div>
 
-    <button @click="handlePostSubmit" type="button" class="add-post__button">
-      Add Post
-    </button>
+    <AppButton @click="handlePostSubmit" isPrimary> Add Post </AppButton>
   </div>
 </template>
 <script>
 import { reactive } from "vue";
 import { usePostStore } from "@/stores/posts";
+import AppButton from "@/components/global/AppButton";
 
 export default {
   name: "AddPost",
+  components: {
+    AppButton,
+  },
 
   setup() {
     const store = usePostStore();

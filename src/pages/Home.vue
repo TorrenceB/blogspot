@@ -22,7 +22,7 @@
 
     <div class="flex justify-between w-full mt-2 gap-x-2">
       <div class="stat__card">
-        <h3 class="text-4xl">{{ store.getPosts.length }}</h3>
+        <h3 class="text-3xl">{{ store.getPosts.length }}</h3>
         <p class="text-sm dark:text-gray-400"># of Posts</p>
       </div>
       <div class="stat__card">
@@ -31,27 +31,27 @@
       </div>
     </div>
 
-    <button
-      @click="$router.push({ name: 'AddPost' })"
-      type="button"
-      class="add-post__button"
-    >
-      Add Post
-    </button>
-    <button
-      @click="$router.push({ name: 'Posts' })"
-      type="button"
-      class="add-post__button"
-    >
-      View Posts
-    </button>
+    <div class="mt-2">
+      <AppButton @click="$router.push({ name: 'AddPost' })" isPrimary
+        >Add Post</AppButton
+      >
+      <AppButton @click="$router.push({ name: 'Posts' })" isSecondary
+        >View Posts</AppButton
+      >
+    </div>
   </div>
 </template>
 <script>
 import { usePostStore } from "@/stores/posts";
 
+/* Components */
+import AppButton from "@/components/global/AppButton";
+
 export default {
   name: "Home",
+  components: {
+    AppButton,
+  },
 
   setup() {
     const store = usePostStore();
@@ -73,10 +73,6 @@ export default {
 };
 </script>
 <style scoped>
-.add-post__button {
-  @apply focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 my-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800;
-}
-
 .profile__card {
   @apply p-6 w-full bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 flex flex-col items-center;
 }
