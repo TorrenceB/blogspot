@@ -1,0 +1,16 @@
+{
+  "resourceName": "s3blogspotstorage4f60a9c8",
+  "bucketName": "blogspot-storage-4f60a9c8",
+  "policyUUID": "e4dc39dc",
+  "storageAccess": "authAndGuest",
+  "guestAccess": [
+    "READ",
+    "CREATE_AND_UPDATE",
+    "DELETE"
+  ],
+  "authAccess": [
+    "READ",
+    "CREATE_AND_UPDATE",
+    "DELETE"
+  ]
+}

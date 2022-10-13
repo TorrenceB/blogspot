@@ -3,7 +3,7 @@
     @click="$router.push({ name: 'PostsSlug', params: { id: props.post.id } })"
     class="max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700"
   >
-    <img class="rounded-t-lg" :src="props.post.image" alt="notebook" />
+    <img class="rounded-t-lg" :src="props.post.image" :alt="props.post.image" />
 
     <div class="p-5">
       <h5

@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { API, graphqlOperation } from "aws-amplify";
+import { API, graphqlOperation, Storage } from "aws-amplify";
 import { listPosts } from "@/graphql/queries.js";
 import { createPost, updatePost, deletePost } from "@/graphql/mutations.js";
 
@@ -29,7 +29,13 @@ export const usePostStore = defineStore("posts", {
       try {
         const { data } = await API.graphql(graphqlOperation(listPosts));
 
-        this.posts = data.listPosts.items;
+        this.posts = await Promise.all(
+          data.listPosts.items.map(async (post) => {
+            const image = await Storage.get(post.image);
+
+            return { ...post, image };
+          })
+        );
       } catch (err) {
         console.error("!", "@usePostStore:posts:fetch", err);
       }
@@ -71,6 +77,16 @@ export const usePostStore = defineStore("posts", {
         );
       } catch (err) {
         console.error("!", "@usePostStore:posts::delete", err);
+      }
+    },
+
+    async uploadPostImage(file) {
+      try {
+        const { key } = await Storage.put(file.name, file);
+
+        return key;
+      } catch (err) {
+        console.error("!", "@usePostStore:posts::uploadPostImage", err);
       }
     },
   },

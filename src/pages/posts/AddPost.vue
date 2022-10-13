@@ -18,7 +18,6 @@
     </div>
 
     <!-- Upload Image -->
-
     <div>
       <label
         class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
@@ -26,6 +25,7 @@
         >Upload image</label
       >
       <input
+        @change="handleUploadImage($event)"
         class="image__input"
         aria-describedby="image_help"
         id="post-image"
@@ -68,20 +68,31 @@ export default {
     const state = reactive({
       title: "",
       body: "",
+      image: null,
     });
 
     const handlePostSubmit = () => {
+      const { title, body, image } = state;
       const post = {
-        title: state.title,
-        body: state.body,
+        title,
+        body,
+        image,
       };
 
       store.create(post);
     };
 
+    const handleUploadImage = async (e) => {
+      const { files } = e.target;
+      const image = await store.uploadPostImage(files[0]);
+
+      state.image = image;
+    };
+
     return {
       state,
       handlePostSubmit,
+      handleUploadImage,
     };
   },
 };
