@@ -45,8 +45,9 @@ export const usePostStore = defineStore("posts", {
         const { data } = await API.graphql(
           graphqlOperation(createPost, { input: post })
         );
+        const image = await Storage.get(data.createPost.image);
 
-        this.posts.push(data.createPost);
+        this.posts.push({ ...data.createPost, image });
       } catch (err) {
         console.error("!", "@usePostStore:posts::create", err);
       }
@@ -57,11 +58,12 @@ export const usePostStore = defineStore("posts", {
           graphqlOperation(updatePost, { input })
         );
 
-        this.posts = this.posts.map((post) => {
-          const updated = Object.assign(post, data.updatePost, {});
+        const updatedPostIndex = this.posts.findIndex(
+          (post) => post.id === data.updatePost.id
+        );
+        const image = await Storage.get(data.updatePost.image);
 
-          return post.id === input.id ? updated : post;
-        });
+        this.posts[updatedPostIndex] = { ...data.updatePost, image };
       } catch (err) {
         console.error("!", "@usePostStore:posts::update", err);
       }

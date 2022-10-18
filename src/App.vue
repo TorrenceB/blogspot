@@ -20,6 +20,6 @@ export default {
 
 <style scoped>
 .app {
-  @apply p-6 h-full;
+  @apply p-6 h-full overflow-y-scroll;
 }
 </style>
