@@ -112,6 +112,7 @@ export default {
   setup(props, { emit }) {
     const store = usePostStore();
     const route = useRoute();
+    const currentPost = store.getPost(route.params.id);
     const state = reactive({
       title: "",
       body: "",
@@ -119,15 +120,20 @@ export default {
     });
 
     const handleUpdatePost = async () => {
+      const { title, body, image } = state;
       const updatedPost = {
         id: route.params.id,
-        title: state.title,
-        image: state.image,
-        body: state.body,
+        title: title || currentPost.title,
+        image: image || currentPost.image,
+        body: body || currentPost.body,
       };
 
+      const imageIsUpdated = updatedPost.image === state.image;
+
       try {
-        await store.update(updatedPost);
+        imageIsUpdated
+          ? await store.updateWithImage(updatedPost)
+          : await store.update(updatedPost);
 
         emit("close");
       } catch (err) {

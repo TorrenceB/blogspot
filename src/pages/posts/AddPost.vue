@@ -54,6 +54,7 @@
 </template>
 <script>
 import { reactive } from "vue";
+import { useRouter } from "vue-router";
 import { usePostStore } from "@/stores/posts";
 import AppButton from "@/components/global/AppButton";
 
@@ -64,6 +65,7 @@ export default {
   },
 
   setup() {
+    const router = useRouter();
     const store = usePostStore();
     const state = reactive({
       title: "",
@@ -71,7 +73,7 @@ export default {
       image: null,
     });
 
-    const handlePostSubmit = () => {
+    const handlePostSubmit = async () => {
       const { title, body, image } = state;
       const post = {
         title,
@@ -79,7 +81,9 @@ export default {
         image,
       };
 
-      store.create(post);
+      await store.create(post);
+
+      router.push({ name: "home" });
     };
 
     const handleUploadImage = async (e) => {

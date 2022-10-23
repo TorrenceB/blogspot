@@ -1,20 +1,20 @@
 <template>
   <div class="post-container">
-    <div class="post-image__container">
-      <img :src="state.post.image" />
+    <div class="space-y-4">
+      <h1 class="dark:text-white text-3xl">{{ state.post.title }}</h1>
+      <div class="post-image__container">
+        <img :src="state.post.image" class="rounded-lg" />
+      </div>
+      <div class="post-info">
+        <div class="flex divide-x space-x-1 divide-gray-400">
+          <h2 class="dark:text-gray-400 pr-1">Torrence Brown</h2>
+          <p class="dark:text-gray-400 px-1">{{ postCreatedAt }}</p>
+        </div>
+        <p class="dark:text-white">{{ state.post.body }}</p>
+      </div>
     </div>
-    <div class="post-title">
-      <h1 class="dark:text-white text-2xl">{{ state.post.title }}</h1>
-    </div>
-    <div class="post-body">
-      <p class="dark:text-gray-400">{{ state.post.body }}</p>
-    </div>
-    <div class="post-actions__container">
-      <UpdatePost
-        :isActive="state.updateIsActive"
-        @close="state.updateIsActive = false"
-      />
 
+    <div class="post-actions__container">
       <button
         @click="state.updateIsActive = true"
         class="toggle-modal__button"
@@ -30,6 +30,10 @@
       >
         Delete Post
       </button>
+      <UpdatePost
+        :isActive="state.updateIsActive"
+        @close="state.updateIsActive = false"
+      />
     </div>
   </div>
 </template>
@@ -56,6 +60,10 @@ export default {
       post: computed(() => getPost.value(route.params.id)),
     });
 
+    const postCreatedAt = computed(() =>
+      new Date(state.post.createdAt).toDateString()
+    );
+
     const handleDeletePost = async () => {
       try {
         await store.delete(state.post.id);
@@ -68,6 +76,7 @@ export default {
 
     return {
       state,
+      postCreatedAt,
       handleDeletePost,
     };
   },
@@ -75,11 +84,15 @@ export default {
 </script>
 <style scoped>
 .post-container {
-  @apply flex flex-col w-full;
+  @apply flex flex-col justify-between h-full w-full;
+}
+
+.post-info {
+  @apply flex flex-col space-y-2;
 }
 
 .post-actions__container {
-  @apply flex w-full justify-between space-x-2;
+  @apply flex flex-col w-full justify-between;
 }
 
 .toggle-modal__button {
@@ -87,6 +100,6 @@ export default {
 }
 
 .post-actions__delete-button {
-  @apply w-full focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900;
+  @apply w-full focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900;
 }
 </style>

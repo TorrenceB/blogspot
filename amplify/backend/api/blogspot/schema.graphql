@@ -12,6 +12,7 @@ type Blog @model {
 type Post @model {
   id: ID!
   title: String!
+  author: String
   image: String
   body: String
   blog: Blog @belongsTo

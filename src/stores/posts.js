@@ -61,12 +61,19 @@ export const usePostStore = defineStore("posts", {
         const updatedPostIndex = this.posts.findIndex(
           (post) => post.id === data.updatePost.id
         );
-        const image = await Storage.get(data.updatePost.image);
 
-        this.posts[updatedPostIndex] = { ...data.updatePost, image };
+        this.posts[updatedPostIndex] = {
+          ...data.updatePost,
+          image: input.image,
+        };
       } catch (err) {
         console.error("!", "@usePostStore:posts::update", err);
       }
+    },
+    async updateWithImage(updatedPost = {}) {
+      const image = await Storage.get(updatedPost.image);
+
+      this.update({ ...updatedPost, image });
     },
     async delete(id = "") {
       try {

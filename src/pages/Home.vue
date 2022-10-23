@@ -20,7 +20,7 @@
       <p class="dark:text-gray-400 text-sm">Personal Blog</p>
     </div>
 
-    <div class="flex justify-between w-full mt-2 gap-x-2">
+    <div class="grid grid-cols-2 grid-flow-row w-full mt-2 gap-2">
       <div class="stat__card">
         <h3 class="text-3xl">{{ store.getPosts.length }}</h3>
         <p class="text-sm dark:text-gray-400"># of Posts</p>
@@ -28,6 +28,14 @@
       <div class="stat__card">
         <h3 class="text-3xl">{{ store.getMostRecentPostByDate }}</h3>
         <p class="text-sm dark:text-gray-400">Most Recent Post</p>
+      </div>
+      <div class="stat__card">
+        <h3 class="text-3xl">4</h3>
+        <p class="text-sm dark:text-gray-400"># of Images</p>
+      </div>
+      <div class="stat__card">
+        <h3 class="text-3xl">{{ store.getMostRecentPostByDate }}</h3>
+        <p class="text-sm dark:text-gray-400">Most Recent Image</p>
       </div>
     </div>
 
