@@ -45,6 +45,7 @@ export const onCreatePost = /* GraphQL */ `
     onCreatePost {
       id
       title
+      author
       image
       body
       blog {
@@ -64,6 +65,7 @@ export const onUpdatePost = /* GraphQL */ `
     onUpdatePost {
       id
       title
+      author
       image
       body
       blog {
@@ -83,6 +85,7 @@ export const onDeletePost = /* GraphQL */ `
     onDeletePost {
       id
       title
+      author
       image
       body
       blog {
@@ -94,6 +97,36 @@ export const onDeletePost = /* GraphQL */ `
       createdAt
       updatedAt
       blogPostsId
+    }
+  }
+`;
+export const onCreateUser = /* GraphQL */ `
+  subscription OnCreateUser {
+    onCreateUser {
+      id
+      email
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateUser = /* GraphQL */ `
+  subscription OnUpdateUser {
+    onUpdateUser {
+      id
+      email
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteUser = /* GraphQL */ `
+  subscription OnDeleteUser {
+    onDeleteUser {
+      id
+      email
+      createdAt
+      updatedAt
     }
   }
 `;

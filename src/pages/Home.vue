@@ -43,9 +43,11 @@
       <AppButton @click="$router.push({ name: 'AddPost' })" isPrimary
         >Add Post</AppButton
       >
+      <AppButton isPrimary>Add Image</AppButton>
       <AppButton @click="$router.push({ name: 'Posts' })" isSecondary
         >Manage Posts</AppButton
       >
+      <AppButton isSecondary>Manage Gallery</AppButton>
     </div>
   </div>
 </template>

@@ -9,11 +9,17 @@
 
 <script>
 import Nav from "@/components/global/Nav";
+import { useUserStore } from "@/stores/user";
 
 export default {
   name: "App",
   components: {
     Nav,
+  },
+  setup() {
+    const store = useUserStore();
+
+    store.fetchAuthUser();
   },
 };
 </script>

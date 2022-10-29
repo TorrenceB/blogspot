@@ -36,6 +36,7 @@ export const getPost = /* GraphQL */ `
     getPost(id: $id) {
       id
       title
+      author
       image
       body
       blog {
@@ -60,11 +61,39 @@ export const listPosts = /* GraphQL */ `
       items {
         id
         title
+        author
         image
         body
         createdAt
         updatedAt
         blogPostsId
+      }
+      nextToken
+    }
+  }
+`;
+export const getUser = /* GraphQL */ `
+  query GetUser($id: ID!) {
+    getUser(id: $id) {
+      id
+      email
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listUsers = /* GraphQL */ `
+  query ListUsers(
+    $filter: ModelUserFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        email
+        createdAt
+        updatedAt
       }
       nextToken
     }

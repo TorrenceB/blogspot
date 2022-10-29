@@ -17,3 +17,8 @@ type Post @model {
   body: String
   blog: Blog @belongsTo
 }
+
+type User @model {
+  id: ID!
+  email: String!
+}
