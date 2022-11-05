@@ -44,5 +44,14 @@ export const useUserStore = defineStore("user", {
         return { status: "error" };
       }
     },
+    async logout() {
+      try {
+        await Auth.signOut();
+
+        this.user = null;
+      } catch (err) {
+        console.error("!", "@useUserStore:user::logout", err);
+      }
+    },
   },
 });

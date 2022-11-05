@@ -47,12 +47,17 @@
       <AppButton @click="$router.push({ name: 'Posts' })" isSecondary
         >Manage Posts</AppButton
       >
-      <AppButton isSecondary>Manage Gallery</AppButton>
+      <AppButton @click="$router.push({ name: 'Gallery' })" isSecondary
+        >Manage Gallery</AppButton
+      >
+      <AppButton @click="logout()" isSecondary>Logout</AppButton>
     </div>
   </div>
 </template>
 <script>
 import { usePostStore } from "@/stores/posts";
+import { useUserStore } from "@/stores/user";
+import { useRouter } from "vue-router";
 
 /* Components */
 import AppButton from "@/components/global/AppButton";
@@ -65,20 +70,27 @@ export default {
 
   setup() {
     const store = usePostStore();
+    const userStore = useUserStore();
+    const router = useRouter();
+
+    const init = async () => {
+      if (store.getPosts && store.getPosts.length === 0) {
+        await store.fetch();
+      }
+    };
+
+    const logout = async () => {
+      await userStore.logout();
+
+      router.push({ name: "Auth" });
+    };
+
+    init();
 
     return {
       store,
+      logout,
     };
-  },
-  methods: {
-    async init() {
-      if (this.store.getPosts && this.store.getPosts.length === 0) {
-        await this.store.fetch();
-      }
-    },
-  },
-  created() {
-    this.init();
   },
 };
 </script>
