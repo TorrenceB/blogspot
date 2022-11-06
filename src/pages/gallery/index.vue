@@ -1,21 +1,27 @@
 <template>
   <div class="gallery-container">
-    <div class="gallery-container__element bg-blue-600"></div>
-    <div class="gallery-container__element bg-purple-600"></div>
-    <div class="gallery-container__element bg-red-600"></div>
-    <div class="gallery-container__element bg-green-600"></div>
-    <div class="gallery-container__element bg-orange-600"></div>
-    <div class="gallery-container__element bg-pink-600"></div>
-    <div class="gallery-container__element bg-yellow-300"></div>
-    <div class="gallery-container__element bg-teal-600"></div>
-    <div class="gallery-container__element bg-blue-400"></div>
-    <div class="gallery-container__element bg-purple-600"></div>
-    <div class="gallery-container__element bg-red-600"></div>
+    <div
+      v-for="(image, index) in store.getImages"
+      :key="index"
+      class="gallery-container__element"
+    >
+      <img :src="image" class="object-cover" height="100%" />
+    </div>
   </div>
 </template>
 <script>
+import { useGalleryStore } from "@/stores/gallery";
+
 export default {
   name: "Gallery",
+  setup() {
+    const store = useGalleryStore();
+    store.fetchAll();
+
+    return {
+      store,
+    };
+  },
 };
 </script>
 <style scoped>
@@ -27,7 +33,7 @@ export default {
 }
 
 .gallery-container__element {
-  @apply w-full h-64;
+  @apply w-full h-64 overflow-hidden;
 }
 
 @media only screen and (min-width: 992px) {
@@ -48,19 +54,11 @@ export default {
     grid-column-start: span 2;
   }
 
-  .gallery-container__element:nth-child(3) {
-    grid-row-start: span 2;
-  }
-
   .gallery-container__element:nth-child(5) {
     grid-row-start: span 2;
   }
 
-  .gallery-container__element:nth-child(8) {
-    grid-column-start: span 2;
-  }
-
-  .gallery-container__element:nth-child(9) {
+  .gallery-container__element:nth-child(6) {
     grid-column-start: span 2;
   }
 }
