@@ -1,11 +1,14 @@
 <template>
-  <div class="gallery-container">
-    <div
-      v-for="(image, index) in store.getImages"
-      :key="index"
-      class="gallery-container__element"
-    >
-      <img :src="image" class="object-cover" height="100%" />
+  <div>
+    <h1 class="text-4xl dark:text-white">Gallery</h1>
+    <div class="gallery-container">
+      <div
+        v-for="(image, index) in store.getImages"
+        :key="index"
+        class="gallery-container__element"
+      >
+        <img :src="image" class="gallery-image" />
+      </div>
     </div>
   </div>
 </template>
@@ -16,7 +19,10 @@ export default {
   name: "Gallery",
   setup() {
     const store = useGalleryStore();
-    store.fetchAll();
+
+    if (store.getImages.length === 0) {
+      store.fetchAll();
+    }
 
     return {
       store,
@@ -33,7 +39,12 @@ export default {
 }
 
 .gallery-container__element {
-  @apply w-full h-64 overflow-hidden;
+  @apply w-full;
+}
+
+.gallery-image {
+  object-fit: cover;
+  width: 100%;
 }
 
 @media only screen and (min-width: 992px) {
@@ -41,13 +52,17 @@ export default {
     margin: 0 auto;
     width: fit-content;
     display: grid;
-    grid-template-columns: repeat(4, 15rem);
+    grid-template-columns: repeat(4, 1fr);
     grid-auto-rows: 16rem;
     gap: 1rem;
   }
 
   .gallery-container__element {
     @apply h-full;
+  }
+
+  .gallery-image {
+    height: 100%;
   }
 
   .gallery-container__element:nth-child(1) {

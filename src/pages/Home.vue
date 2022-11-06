@@ -22,19 +22,19 @@
 
     <div class="grid grid-cols-2 grid-flow-row w-full mt-2 gap-2">
       <div class="stat__card">
-        <h3 class="text-3xl">{{ store.getPosts.length }}</h3>
+        <h3 class="text-3xl">{{ postStore.getPosts.length }}</h3>
         <p class="text-sm dark:text-gray-400"># of Posts</p>
       </div>
       <div class="stat__card">
-        <h3 class="text-3xl">{{ store.getMostRecentPostByDate }}</h3>
+        <h3 class="text-3xl">{{ postStore.getMostRecentPostByDate }}</h3>
         <p class="text-sm dark:text-gray-400">Most Recent Post</p>
       </div>
       <div class="stat__card">
-        <h3 class="text-3xl">4</h3>
+        <h3 class="text-3xl">{{ galleryStore.getImages.length }}</h3>
         <p class="text-sm dark:text-gray-400"># of Images</p>
       </div>
       <div class="stat__card">
-        <h3 class="text-3xl">{{ store.getMostRecentPostByDate }}</h3>
+        <h3 class="text-3xl">{{ postStore.getMostRecentPostByDate }}</h3>
         <p class="text-sm dark:text-gray-400">Most Recent Image</p>
       </div>
     </div>
@@ -57,6 +57,7 @@
 <script>
 import { usePostStore } from "@/stores/posts";
 import { useUserStore } from "@/stores/user";
+import { useGalleryStore } from "@/stores/gallery";
 import { useRouter } from "vue-router";
 
 /* Components */
@@ -69,13 +70,20 @@ export default {
   },
 
   setup() {
-    const store = usePostStore();
+    const postStore = usePostStore();
     const userStore = useUserStore();
+    const galleryStore = useGalleryStore();
     const router = useRouter();
 
-    const init = async () => {
-      if (store.getPosts && store.getPosts.length === 0) {
-        await store.fetch();
+    const initPosts = async () => {
+      if (postStore.getPosts && postStore.getPosts.length === 0) {
+        await postStore.fetch();
+      }
+    };
+
+    const initGallery = async () => {
+      if (galleryStore.getImages && galleryStore.getImages.length === 0) {
+        await galleryStore.fetchAll();
       }
     };
 
@@ -85,10 +93,12 @@ export default {
       router.push({ name: "Auth" });
     };
 
-    init();
+    initPosts();
+    initGallery();
 
     return {
-      store,
+      postStore,
+      galleryStore,
       logout,
     };
   },
